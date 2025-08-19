@@ -1,0 +1,448 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics - Interview Prep AI{% endblock %}
+
+{% block extra_head %}
+<style>
+.metric-card {
+    transition: transform 0.2s;
+}
+.metric-card:hover {
+    transform: translateY(-2px);
+}
+
+.score-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.improvement-area {
+    border-left: 4px solid #ffc107;
+    padding-left: 15px;
+}
+
+.strength-area {
+    border-left: 4px solid #198754;
+    padding-left: 15px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+{% if analytics %}
+<!-- Single Interview Analytics -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="mb-1">Interview Analytics</h2>
+                <p class="text-muted mb-0">
+                    {{ interview.interview_type.title() }} Interview - 
+                    {{ interview.created_at.strftime('%B %d, %Y at %I:%M %p') }}
+                </p>
+            </div>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Overall Performance Metrics -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card metric-card border-0 shadow h-100">
+            <div class="card-body text-center">
+                <div class="score-circle bg-primary text-white mx-auto mb-3">
+                    {{ "%.0f" | format(analytics.overall_performance * 100) }}%
+                </div>
+                <h6 class="mb-1">Overall Performance</h6>
+                <small class="text-muted">
+                    {% if analytics.overall_performance >= 0.8 %}Excellent
+                    {% elif analytics.overall_performance >= 0.6 %}Good
+                    {% elif analytics.overall_performance >= 0.4 %}Fair
+                    {% else %}Needs Improvement{% endif %}
+                </small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card metric-card border-0 shadow h-100">
+            <div class="card-body text-center">
+                <div class="score-circle bg-success text-white mx-auto mb-3">
+                    {{ "%.0f" | format(analytics.technical_skills_score * 100) }}%
+                </div>
+                <h6 class="mb-1">Technical Skills</h6>
+                <small class="text-muted">Knowledge & Accuracy</small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card metric-card border-0 shadow h-100">
+            <div class="card-body text-center">
+                <div class="score-circle bg-info text-white mx-auto mb-3">
+                    {{ "%.0f" | format(analytics.communication_skills_score * 100) }}%
+                </div>
+                <h6 class="mb-1">Communication</h6>
+                <small class="text-muted">Clarity & Structure</small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card metric-card border-0 shadow h-100">
+            <div class="card-body text-center">
+                <div class="score-circle bg-warning text-dark mx-auto mb-3">
+                    {{ "%.0f" | format(analytics.confidence_level * 100) }}%
+                </div>
+                <h6 class="mb-1">Confidence</h6>
+                <small class="text-muted">Presence & Demeanor</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Performance Breakdown -->
+<div class="row mb-4">
+    <div class="col-lg-6">
+        <div class="card border-0 shadow h-100">
+            <div class="card-header bg-primary text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Performance Breakdown
+                </h6>
+            </div>
+            <div class="card-body">
+                <canvas id="performanceChart" width="400" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6">
+        <div class="card border-0 shadow h-100">
+            <div class="card-header bg-success text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-eye me-2"></i>
+                    Face Analysis Summary
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label small">Eye Contact</label>
+                        <div class="progress mb-1" style="height: 8px;">
+                            <div class="progress-bar bg-success" 
+                                 style="width: {{ (analytics.eye_contact_percentage * 100) | round }}%" 
+                                 role="progressbar"></div>
+                        </div>
+                        <small class="text-muted">{{ "%.0f" | format(analytics.eye_contact_percentage * 100) }}%</small>
+                    </div>
+                    
+                    <div class="col-6 mb-3">
+                        <label class="form-label small">Facial Expression</label>
+                        <div class="progress mb-1" style="height: 8px;">
+                            <div class="progress-bar bg-info" 
+                                 style="width: {{ (analytics.facial_expression_score * 100) | round }}%" 
+                                 role="progressbar"></div>
+                        </div>
+                        <small class="text-muted">{{ "%.0f" | format(analytics.facial_expression_score * 100) }}%</small>
+                    </div>
+                    
+                    <div class="col-6 mb-3">
+                        <label class="form-label small">Nervousness Level</label>
+                        <div class="progress mb-1" style="height: 8px;">
+                            <div class="progress-bar bg-warning" 
+                                 style="width: {{ (analytics.nervousness_indicators * 100) | round }}%" 
+                                 role="progressbar"></div>
+                        </div>
+                        <small class="text-muted">{{ "%.0f" | format(analytics.nervousness_indicators * 100) }}%</small>
+                    </div>
+                    
+                    <div class="col-6 mb-3">
+                        <label class="form-label small">Avg Response Time</label>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-clock text-primary me-2"></i>
+                            <span class="fw-bold">{{ "%.1f" | format(analytics.average_response_time) }}s</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    <canvas id="faceAnalysisChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Strengths and Improvements -->
+<div class="row mb-4">
+    <div class="col-lg-6">
+        <div class="card border-0 shadow h-100">
+            <div class="card-header bg-success text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-star me-2"></i>
+                    Key Strengths
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="strength-area">
+                    <p class="mb-0">{{ analytics.strengths }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6">
+        <div class="card border-0 shadow h-100">
+            <div class="card-header bg-warning text-dark">
+                <h6 class="mb-0">
+                    <i class="fas fa-arrow-up me-2"></i>
+                    Areas for Improvement
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="improvement-area">
+                    <p class="mb-0">{{ analytics.areas_for_improvement }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Detailed Feedback -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-comment-dots me-2"></i>
+                    AI-Generated Detailed Feedback
+                </h6>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">{{ analytics.detailed_feedback }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Question-by-Question Analysis -->
+<div class="row">
+    <div class="col-12">
+        <div class="card border-0 shadow">
+            <div class="card-header bg-secondary text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-list me-2"></i>
+                    Question-by-Question Analysis
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="accordion" id="questionsAccordion">
+                    {% for question in questions %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ question.id }}">
+                            <button class="accordion-button collapsed" 
+                                    type="button" 
+                                    data-bs-toggle="collapse" 
+                                    data-bs-target="#collapse{{ question.id }}">
+                                <div class="d-flex justify-content-between w-100 me-3">
+                                    <span>Question {{ loop.index }}: {{ question.question_text[:100] }}...</span>
+                                    <div>
+                                        {% if question.technical_accuracy %}
+                                        <span class="badge bg-{{ 'success' if question.technical_accuracy >= 0.7 else 'warning' if question.technical_accuracy >= 0.5 else 'danger' }} me-1">
+                                            {{ "%.0f" | format(question.technical_accuracy * 100) }}%
+                                        </span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse{{ question.id }}" 
+                             class="accordion-collapse collapse" 
+                             data-bs-parent="#questionsAccordion">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h6>Question:</h6>
+                                        <p class="text-muted">{{ question.question_text }}</p>
+                                        
+                                        <h6>Your Answer:</h6>
+                                        <p class="text-muted">{{ question.user_answer or "No answer provided" }}</p>
+                                        
+                                        {% if question.ai_feedback %}
+                                        <h6>AI Feedback:</h6>
+                                        <p class="text-muted">{{ question.ai_feedback }}</p>
+                                        {% endif %}
+                                        
+                                        {% if question.improvement_suggestions %}
+                                        <h6>Improvement Suggestions:</h6>
+                                        <p class="text-muted">{{ question.improvement_suggestions }}</p>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <h6>Scores:</h6>
+                                        {% if question.technical_accuracy %}
+                                        <div class="mb-2">
+                                            <small>Technical Accuracy:</small>
+                                            <div class="progress" style="height: 6px;">
+                                                <div class="progress-bar bg-primary" 
+                                                     style="width: {{ (question.technical_accuracy * 100) | round }}%"></div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        
+                                        {% if question.communication_score %}
+                                        <div class="mb-2">
+                                            <small>Communication:</small>
+                                            <div class="progress" style="height: 6px;">
+                                                <div class="progress-bar bg-success" 
+                                                     style="width: {{ (question.communication_score * 100) | round }}%"></div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        
+                                        {% if question.confidence_score %}
+                                        <div class="mb-2">
+                                            <small>Confidence:</small>
+                                            <div class="progress" style="height: 6px;">
+                                                <div class="progress-bar bg-info" 
+                                                     style="width: {{ (question.confidence_score * 100) | round }}%"></div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        
+                                        {% if question.response_time %}
+                                        <div class="mb-2">
+                                            <small>Response Time: {{ "%.1f" | format(question.response_time) }}s</small>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<!-- Analytics History -->
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="mb-3">Analytics History</h2>
+        <p class="text-muted">Track your interview performance over time</p>
+    </div>
+</div>
+
+{% if analytics_list %}
+<div class="row">
+    <div class="col-12">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Overall Score</th>
+                                <th>Technical Skills</th>
+                                <th>Communication</th>
+                                <th>Confidence</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for analytics in analytics_list %}
+                            <tr>
+                                <td>{{ analytics.interview.created_at.strftime('%Y-%m-%d') }}</td>
+                                <td>
+                                    <span class="badge bg-{{ 'primary' if analytics.interview.interview_type == 'technical' else 'success' }}">
+                                        {{ analytics.interview.interview_type.title() }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="fw-bold text-{{ 'success' if analytics.overall_performance >= 0.7 else 'warning' if analytics.overall_performance >= 0.5 else 'danger' }}">
+                                        {{ "%.0f" | format(analytics.overall_performance * 100) }}%
+                                    </span>
+                                </td>
+                                <td>{{ "%.0f" | format(analytics.technical_skills_score * 100) }}%</td>
+                                <td>{{ "%.0f" | format(analytics.communication_skills_score * 100) }}%</td>
+                                <td>{{ "%.0f" | format(analytics.confidence_level * 100) }}%</td>
+                                <td>
+                                    <a href="{{ url_for('view_analytics', interview_id=analytics.interview_id) }}" 
+                                       class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-chart-line me-1"></i>View Details
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="row">
+    <div class="col-12">
+        <div class="text-center py-5">
+            <i class="fas fa-chart-line display-1 text-muted mb-3"></i>
+            <h5 class="text-muted">No analytics available yet</h5>
+            <p class="text-muted">Complete some interviews to see your performance analytics.</p>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+                <i class="fas fa-play me-2"></i>Start Your First Interview
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+{% if analytics %}
+<script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+<script>
+// Initialize analytics charts
+const analyticsData = {
+    overall: {{ analytics.overall_performance }},
+    technical: {{ analytics.technical_skills_score }},
+    communication: {{ analytics.communication_skills_score }},
+    confidence: {{ analytics.confidence_level }},
+    eyeContact: {{ analytics.eye_contact_percentage }},
+    facialExpression: {{ analytics.facial_expression_score }},
+    nervousness: {{ analytics.nervousness_indicators }}
+};
+
+// Face analysis timeline data
+const faceAnalysisData = [
+    {% for analysis in face_analysis %}
+    {
+        timestamp: {{ analysis.timestamp }},
+        confidence: {{ analysis.confidence }},
+        happiness: {{ analysis.happiness }},
+        concentration: {{ analysis.concentration }},
+        nervousness: {{ analysis.nervousness }}
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+];
+
+initializeAnalyticsCharts(analyticsData, faceAnalysisData);
+</script>
+{% endif %}
+{% endblock %}
