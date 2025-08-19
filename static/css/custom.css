@@ -508,8 +508,46 @@ table th {
 /* Simple footer */
 .footer {
     background-color: #343a40;
-    color: white;
+    color: white !important;
     text-align: center;
     padding: 20px;
     margin-top: 40px;
+}
+
+.footer * {
+    color: white !important;
+}
+
+.footer p {
+    color: white !important;
+    margin: 0;
+}
+
+.footer a {
+    color: #ffffff !important;
+    text-decoration: underline;
+}
+
+.footer a:hover {
+    color: #f8f9fa !important;
+}
+
+/* Fix any footer content that might be dark */
+.bg-dark,
+.bg-primary {
+    color: white !important;
+}
+
+.bg-dark *,
+.bg-primary * {
+    color: white !important;
+}
+
+/* Navbar footer or any dark backgrounds */
+.navbar-dark {
+    background-color: #343a40 !important;
+}
+
+.navbar-dark * {
+    color: white !important;
 }
