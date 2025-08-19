@@ -13,8 +13,44 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
 }
 
-p, span, div, li, td, th, label {
+p, span, div, li, td, th, label, a {
     color: #212529 !important;
+}
+
+/* Specific overrides for common elements */
+.btn {
+    font-weight: bold;
+}
+
+.form-label {
+    color: #212529 !important;
+    font-weight: bold;
+}
+
+.list-group-item {
+    color: #212529 !important;
+    background-color: #ffffff;
+}
+
+/* Analytics and dashboard specific */
+.metric-value {
+    color: #212529 !important;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.timeline-content {
+    color: #212529 !important;
+}
+
+/* Interview results and feedback */
+.feedback-text {
+    color: #212529 !important;
+}
+
+.score-text {
+    color: #212529 !important;
+    font-weight: bold;
 }
 
 .text-muted {
@@ -299,6 +335,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
+    background-color: #ffffff;
 }
 
 table th,
@@ -306,11 +343,51 @@ table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
+    color: #212529 !important;
+    background-color: #ffffff;
 }
 
 table th {
     background-color: #f2f2f2;
     font-weight: bold;
+    color: #212529 !important;
+}
+
+/* Bootstrap table overrides */
+.table {
+    color: #212529 !important;
+    background-color: #ffffff;
+}
+
+.table th {
+    color: #212529 !important;
+    background-color: #f8f9fa;
+    font-weight: bold;
+    border-color: #dee2e6;
+}
+
+.table td {
+    color: #212529 !important;
+    background-color: #ffffff;
+    border-color: #dee2e6;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+    color: #212529 !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) td {
+    color: #212529 !important;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e9ecef;
+    color: #212529 !important;
+}
+
+.table-hover tbody tr:hover td {
+    color: #212529 !important;
 }
 
 /* Simple footer */
