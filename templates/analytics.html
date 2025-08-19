@@ -19,9 +19,10 @@
             <div class="card">
                 <div class="card-body">
                     <h5>Performance Scores</h5>
-                    <p>Overall: {{ "%.0f" | format(analytics.overall_performance * 100) }}%</p>
-                    <p>Technical: {{ "%.0f" | format(analytics.technical_skills_score * 100) }}%</p>
-                    <p>Communication: {{ "%.0f" | format(analytics.communication_skills_score * 100) }}%</p>
+                    <canvas id="performanceChart" height="200"></canvas>
+                    <div class="mt-2">
+                        <small>Overall: {{ "%.0f" | format(analytics.overall_performance * 100) }}% | Technical: {{ "%.0f" | format(analytics.technical_skills_score * 100) }}% | Communication: {{ "%.0f" | format(analytics.communication_skills_score * 100) }}%</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -29,8 +30,10 @@
             <div class="card">
                 <div class="card-body">
                     <h5>Face Analysis</h5>
-                    <p>Eye Contact: {{ "%.0f" | format(analytics.eye_contact_percentage * 100) }}%</p>
-                    <p>Response Time: {{ "%.1f" | format(analytics.average_response_time) }}s</p>
+                    <canvas id="faceChart" height="200"></canvas>
+                    <div class="mt-2">
+                        <small>Eye Contact: {{ "%.0f" | format(analytics.eye_contact_percentage * 100) }}% | Expression: {{ "%.0f" | format(analytics.facial_expression_score * 100) }}% | Confidence: {{ "%.0f" | format(analytics.confidence_level * 100) }}%</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -129,5 +132,72 @@
     </div>
     {% endif %}
 </div>
+{% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+{% if analytics %}
+<script>
+// Performance Scores Chart
+const perfCtx = document.getElementById('performanceChart');
+if (perfCtx) {
+    new Chart(perfCtx.getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['Overall', 'Technical', 'Communication'],
+            datasets: [{
+                data: [
+                    {{ (analytics.overall_performance * 100) | round }},
+                    {{ (analytics.technical_skills_score * 100) | round }},
+                    {{ (analytics.communication_skills_score * 100) | round }}
+                ],
+                backgroundColor: ['#28a745', '#007bff', '#17a2b8'],
+                borderWidth: 1,
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, max: 100 },
+                x: { ticks: { font: { size: 12 } } }
+            }
+        }
+    });
+}
+
+// Face Analysis Chart
+const faceCtx = document.getElementById('faceChart');
+if (faceCtx) {
+    new Chart(faceCtx.getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Eye Contact', 'Expression', 'Confidence', 'Calmness'],
+            datasets: [{
+                data: [
+                    {{ (analytics.eye_contact_percentage * 100) | round }},
+                    {{ (analytics.facial_expression_score * 100) | round }},
+                    {{ (analytics.confidence_level * 100) | round }},
+                    {{ (100 - (analytics.nervousness_indicators * 100)) | round }}
+                ],
+                backgroundColor: ['#28a745', '#ffc107', '#007bff', '#dc3545'],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { font: { size: 10 } }
+                }
+            }
+        }
+    });
+}
+</script>
 {% endif %}
 {% endblock %}
