@@ -19,7 +19,9 @@
             <div class="card">
                 <div class="card-body">
                     <h5>Performance Scores</h5>
-                    <canvas id="performanceChart" height="200"></canvas>
+                    <div style="height: 250px;">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
                     <div class="mt-2">
                         <small>Overall: {{ "%.0f" | format(analytics.overall_performance * 100) }}% | Technical: {{ "%.0f" | format(analytics.technical_skills_score * 100) }}% | Communication: {{ "%.0f" | format(analytics.communication_skills_score * 100) }}%</small>
                     </div>
@@ -30,7 +32,9 @@
             <div class="card">
                 <div class="card-body">
                     <h5>Face Analysis</h5>
-                    <canvas id="faceChart" height="200"></canvas>
+                    <div style="height: 250px;">
+                        <canvas id="faceChart"></canvas>
+                    </div>
                     <div class="mt-2">
                         <small>Eye Contact: {{ "%.0f" | format(analytics.eye_contact_percentage * 100) }}% | Expression: {{ "%.0f" | format(analytics.facial_expression_score * 100) }}% | Confidence: {{ "%.0f" | format(analytics.confidence_level * 100) }}%</small>
                     </div>
@@ -163,7 +167,8 @@ if (perfCtx) {
             scales: {
                 y: { beginAtZero: true, max: 100 },
                 x: { ticks: { font: { size: 12 } } }
-            }
+            },
+            animation: false
         }
     });
 }
@@ -194,7 +199,8 @@ if (faceCtx) {
                     position: 'bottom',
                     labels: { font: { size: 10 } }
                 }
-            }
+            },
+            animation: false
         }
     });
 }
