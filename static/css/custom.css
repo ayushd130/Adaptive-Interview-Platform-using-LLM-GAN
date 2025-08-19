@@ -25,6 +25,37 @@ p, span, div, li, td, th, label, a {
 .form-label {
     color: #212529 !important;
     font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Input group styling */
+.input-group-text {
+    background-color: #e9ecef;
+    color: #212529 !important;
+    border: 1px solid #ccc;
+}
+
+/* Button styling for forms */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white !important;
+    font-weight: bold;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white !important;
+    font-weight: bold;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white !important;
+    font-weight: bold;
 }
 
 .list-group-item {
@@ -51,6 +82,45 @@ p, span, div, li, td, th, label, a {
 .score-text {
     color: #212529 !important;
     font-weight: bold;
+}
+
+/* Form validation states */
+.is-valid {
+    border-color: #28a745 !important;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.valid-feedback {
+    color: #28a745 !important;
+    font-weight: bold;
+}
+
+.invalid-feedback {
+    color: #dc3545 !important;
+    font-weight: bold;
+}
+
+/* Ensure all form text is visible */
+.form-text {
+    color: #6c757d !important;
+}
+
+/* Radio buttons and checkboxes */
+.form-check-label {
+    color: #212529 !important;
+}
+
+.form-check-input {
+    background-color: white;
+    border-color: #ccc;
+}
+
+.form-check-input:checked {
+    background-color: #007bff;
+    border-color: #007bff;
 }
 
 .text-muted {
@@ -271,12 +341,57 @@ p, span, div, li, td, th, label, a {
     background-color: white;
     padding: 8px;
     margin: 5px 0;
+    color: #212529 !important;
+    font-weight: normal;
 }
 
 .form-control:focus,
 .form-select:focus {
     border-color: #007bff;
     outline: none;
+    background-color: white;
+    color: #212529 !important;
+}
+
+/* Dropdown options styling */
+.form-select option {
+    background-color: white !important;
+    color: #212529 !important;
+    padding: 8px;
+    font-weight: normal;
+}
+
+/* Placeholder styling */
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+    font-weight: normal;
+}
+
+.form-select:invalid {
+    color: #6c757d !important;
+}
+
+/* When dropdown is opened */
+select {
+    background-color: white !important;
+    color: #212529 !important;
+}
+
+select option {
+    background-color: white !important;
+    color: #212529 !important;
+    padding: 10px;
+}
+
+select option:checked {
+    background-color: #007bff !important;
+    color: white !important;
+}
+
+select option:hover {
+    background-color: #f8f9fa !important;
+    color: #212529 !important;
 }
 
 .alert {
