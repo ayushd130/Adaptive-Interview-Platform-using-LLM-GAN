@@ -14,6 +14,28 @@
     </div>
 
 
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Performance Scores</h5>
+                    <p>Overall: {{ "%.0f" | format(analytics.overall_performance * 100) }}%</p>
+                    <p>Technical: {{ "%.0f" | format(analytics.technical_skills_score * 100) }}%</p>
+                    <p>Communication: {{ "%.0f" | format(analytics.communication_skills_score * 100) }}%</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Face Analysis</h5>
+                    <p>Eye Contact: {{ "%.0f" | format(analytics.eye_contact_percentage * 100) }}%</p>
+                    <p>Response Time: {{ "%.1f" | format(analytics.average_response_time) }}s</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-6 mb-3">
             <div class="card">
