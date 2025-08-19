@@ -33,17 +33,6 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5>Additional Info</h5>
-                    <p><strong>Eye Contact:</strong> {{ "%.0f" | format(analytics.eye_contact_percentage * 100) }}%</p>
-                    <p><strong>Average Response Time:</strong> {{ "%.1f" | format(analytics.average_response_time) }}s</p>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 {% else %}
