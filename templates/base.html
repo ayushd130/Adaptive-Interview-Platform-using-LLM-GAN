@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Interview Prep AI{% endblock %}</title>
+    <title>{% block title %}Interview Practice App{% endblock %}</title>
     
     <!-- Bootstrap CSS with Replit theme -->
     <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
@@ -24,8 +24,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('index') }}">
-                <i class="fas fa-microphone-alt me-2"></i>
-                Interview Prep AI
+                Interview Practice App
             </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -36,18 +35,13 @@
                 <ul class="navbar-nav me-auto">
                     {% if current_user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('dashboard') }}">
-                                <i class="fas fa-tachometer-alt me-1"></i>Dashboard
-                            </a>
+                            <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('analytics_history') }}">
-                                <i class="fas fa-chart-line me-1"></i>Analytics
-                            </a>
+                            <a class="nav-link" href="{{ url_for('analytics_history') }}">Analytics</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('profile') }}">
-                                <i class="fas fa-user me-1"></i>Profile
+                            <a class="nav-link" href="{{ url_for('profile') }}">Profile
                             </a>
                         </li>
                     {% endif %}

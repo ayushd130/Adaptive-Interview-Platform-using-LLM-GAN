@@ -1,34 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard - Interview Prep AI{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
-{% block extra_head %}
-<style>
-.stat-card {
-    transition: transform 0.2s;
-}
-.stat-card:hover {
-    transform: translateY(-5px);
-}
-</style>
-{% endblock %}
 
 {% block content %}
-<!-- Welcome Section -->
-<div class="row mb-4">
+<div class="row">
     <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <h2 class="mb-2">Welcome back, {{ current_user.username }}!</h2>
-                <p class="text-muted mb-0">Ready to practice your interview skills?</p>
-            </div>
-            <div>
-                <img src="https://pixabay.com/get/g2b785546f56d71286d2a6fa36a076ecd3f0246a7c6dd268db583cdf3d6533f4e7e4abd4f28aeec3c45ba8fa3241a0aa4f335f732d8c32c302ef8139a535f0c00_1280.jpg" 
-                     alt="Interview Practice" 
-                     class="rounded-circle" 
-                     style="width: 80px; height: 80px; object-fit: cover;">
-            </div>
-        </div>
+        <h2>Dashboard - {{ current_user.username }}</h2>
+        <p>Welcome to your interview practice dashboard.</p>
     </div>
 </div>
 

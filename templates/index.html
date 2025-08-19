@@ -1,186 +1,97 @@
 {% extends "base.html" %}
 
-{% block title %}Welcome to Interview Prep AI{% endblock %}
+{% block title %}Interview Practice App{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<div class="row align-items-center py-5">
-    <div class="col-lg-6">
-        <h1 class="display-4 fw-bold mb-4">
-            <i class="fas fa-brain text-primary me-3"></i>
-            AI-Powered Interview Preparation
-        </h1>
-        <p class="lead mb-4">
-            Master your interview skills with our advanced LLM and GAN-powered platform. 
-            Get real-time feedback, face analysis, and personalized improvement recommendations.
-        </p>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Interview Practice App</h1>
+            <p>A simple app to help you practice job interviews using AI technology.</p>
         
-        <div class="row mb-4">
-            <div class="col-md-6 mb-3">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-robot text-primary me-3 fs-4"></i>
-                    <div>
-                        <h6 class="mb-0">LLM-Generated Questions</h6>
-                        <small class="text-muted">Unique questions every time</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-video text-success me-3 fs-4"></i>
-                    <div>
-                        <h6 class="mb-0">Face Analysis</h6>
-                        <small class="text-muted">Real-time emotion detection</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-chart-line text-info me-3 fs-4"></i>
-                    <div>
-                        <h6 class="mb-0">Analytics Dashboard</h6>
-                        <small class="text-muted">Comprehensive performance insights</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-microphone text-warning me-3 fs-4"></i>
-                    <div>
-                        <h6 class="mb-0">Speech Analysis</h6>
-                        <small class="text-muted">Voice and response evaluation</small>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <ul>
+                <li>AI generates different questions each time</li>
+                <li>Record your answers with webcam</li>
+                <li>Get feedback on your performance</li>
+                <li>View your interview history</li>
+            </ul>
         
-        {% if not current_user.is_authenticated %}
-        <div class="d-flex gap-3">
-            <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">
-                <i class="fas fa-user-plus me-2"></i>Get Started
-            </a>
-            <a href="{{ url_for('login') }}" class="btn btn-outline-secondary btn-lg">
-                <i class="fas fa-sign-in-alt me-2"></i>Login
-            </a>
-        </div>
-        {% else %}
-        <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg">
-            <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
-        </a>
-        {% endif %}
-    </div>
-    
-    <div class="col-lg-6">
-        <div class="text-center">
-            <img src="https://pixabay.com/get/gbb927bbe4f5907832337fcff213875ac69411cf63b8433ef82c516d7562e4c67539bcbd7c22f1791e0ac9cb9ff5cd8efdf515e1ee8f42ec93487bee138206305_1280.jpg" 
-                 alt="Professional Interview Setup" 
-                 class="img-fluid rounded shadow-lg">
+            {% if not current_user.is_authenticated %}
+            <p>
+                <a href="{{ url_for('register') }}" class="btn btn-primary">Register</a>
+                <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
+            </p>
+            {% else %}
+            <p>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+            </p>
+            {% endif %}
         </div>
     </div>
 </div>
 
-<!-- Features Section -->
-<div class="row py-5">
-    <div class="col-12 text-center mb-5">
-        <h2 class="display-6 fw-bold">Why Choose Interview Prep AI?</h2>
-        <p class="lead text-muted">Advanced AI technology meets practical interview preparation</p>
-    </div>
-    
-    <div class="col-lg-4 mb-4">
-        <div class="card h-100 border-0 shadow">
-            <div class="card-body text-center p-4">
-                <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
-                     style="width: 60px; height: 60px;">
-                    <i class="fas fa-magic text-white fs-4"></i>
-                </div>
-                <h5 class="card-title">Dynamic Question Generation</h5>
-                <p class="card-text">
-                    Our GAN-enhanced system generates unique interview questions tailored to your experience level 
-                    and interview type, ensuring fresh challenges every time.
-                </p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-lg-4 mb-4">
-        <div class="card h-100 border-0 shadow">
-            <div class="card-body text-center p-4">
-                <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
-                     style="width: 60px; height: 60px;">
-                    <i class="fas fa-eye text-white fs-4"></i>
-                </div>
-                <h5 class="card-title">Real-time Face Analysis</h5>
-                <p class="card-text">
-                    Advanced computer vision analyzes your facial expressions, eye contact, and body language 
-                    to provide insights into your interview presence and confidence.
-                </p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-lg-4 mb-4">
-        <div class="card h-100 border-0 shadow">
-            <div class="card-body text-center p-4">
-                <div class="bg-info rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
-                     style="width: 60px; height: 60px;">
-                    <i class="fas fa-brain text-white fs-4"></i>
-                </div>
-                <h5 class="card-title">AI-Powered Feedback</h5>
-                <p class="card-text">
-                    Get instant, detailed feedback on your responses using advanced LLM analysis. 
-                    Improve your technical accuracy, communication skills, and overall performance.
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Interview Types Section -->
-<div class="row py-5 bg-dark rounded">
-    <div class="col-12 text-center mb-4">
-        <h3 class="fw-bold text-light">Practice Different Interview Types</h3>
-    </div>
-    
-    <div class="col-md-6 mb-3">
-        <div class="d-flex align-items-center p-3">
-            <img src="https://pixabay.com/get/g7cc74fd6ce64a4634da71ac80678b7869ec92dd1ead5ae11e754f21a2c9e0cd769ae72b490ab8c8dc6b222fb29bec14e9117a9ef8cebab2567cdf788ff10aa52_1280.jpg" 
-                 alt="Technical Interview" 
-                 class="rounded me-3" 
-                 style="width: 80px; height: 80px; object-fit: cover;">
-            <div>
-                <h6 class="text-light mb-1">Technical Interviews</h6>
-                <p class="text-muted small mb-0">
-                    Programming, algorithms, system design, and technical problem-solving questions
-                </p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-6 mb-3">
-        <div class="d-flex align-items-center p-3">
-            <img src="https://pixabay.com/get/gc9eaa9da59a480b2baa63bcf11af4c799d298258457dac0bc23cb8265766acb42dbc012f29d331365188d374f428fdc1d774f9ac361c9a9ee883cc24509711b0_1280.jpg" 
-                 alt="Behavioral Interview" 
-                 class="rounded me-3" 
-                 style="width: 80px; height: 80px; object-fit: cover;">
-            <div>
-                <h6 class="text-light mb-1">Behavioral Interviews</h6>
-                <p class="text-muted small mb-0">
-                    Leadership, teamwork, conflict resolution, and situational response questions
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- CTA Section -->
-{% if not current_user.is_authenticated %}
-<div class="row py-5 text-center">
+<div class="row">
     <div class="col-12">
-        <h3 class="fw-bold mb-3">Ready to Ace Your Next Interview?</h3>
-        <p class="lead mb-4">Join thousands of professionals who have improved their interview skills with our AI platform.</p>
-        <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg px-5">
-            <i class="fas fa-rocket me-2"></i>Start Your Free Trial
-        </a>
+        <h2>Features</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">AI Questions</div>
+                    <div class="card-body">
+                        <p>The system uses AI to create different interview questions for practice.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Video Recording</div>
+                    <div class="card-body">
+                        <p>Record yourself answering questions to practice your interview skills.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Performance Analytics</div>
+                    <div class="card-body">
+                        <p>See how well you did and get tips to improve your interview performance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 30px;">
+    <div class="col-12">
+        <h3>Interview Types</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Technical Interviews</div>
+                    <div class="card-body">
+                        <p>Practice coding problems, algorithms, and technical questions.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">General Interviews</div>
+                    <div class="card-body">
+                        <p>Practice common interview questions about yourself and your experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if not current_user.is_authenticated %}
+<div class="row" style="margin-top: 40px; text-align: center;">
+    <div class="col-12">
+        <h3>Get Started</h3>
+        <p>Create an account to start practicing interviews.</p>
+        <a href="{{ url_for('register') }}" class="btn btn-primary">Sign Up Now</a>
     </div>
 </div>
 {% endif %}
