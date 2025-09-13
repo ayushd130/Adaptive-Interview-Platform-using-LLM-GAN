@@ -1,3 +1,10 @@
+from dotenv import load_dotenv
+load_dotenv()
+
+import os
+from flask import Flask
+# ... rest of your imports
+
 import os
 import logging
 from flask import Flask
